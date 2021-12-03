@@ -9,6 +9,33 @@ function App() {
   const [started, setStarted] = useState(false);
   const [status, setStatus] = useState("");
   const [timer, updateTimer] = useState();
+  const [pos, setPos] = useState(60);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (['ArrowRight', 'ArrowLeft'].includes(e.code) && status === 'red') {
+        return endGame(false);
+      }
+
+      if (e.code === 'ArrowRight') {
+        setPos(pos + 10);
+        let d = document.getElementById('player');
+        d.style.left = `${pos}px`;
+      } else if (e.code === 'ArrowLeft' && pos >= 70) {
+        setPos(pos - 10);
+        let d = document.getElementById('player');
+        d.style.left = `${pos}px`;
+      }
+
+      if (pos > (window.innerWidth - 60 - 110)) {
+        return endGame(true);
+      }
+    };
+
+    window.addEventListener('keydown', handler);
+
+    return () => window.removeEventListener('keydown', handler);
+  })
 
   const changeStatus = useCallback((newStatus) => {
     setStatus(newStatus);
@@ -28,12 +55,13 @@ function App() {
   }
 
   const endGame = (success) => {
-    if(success) {
+    if (success) {
       alert("Congratulations! You cleared it successfully.");
     } else {
-      alert("Oops! Better luck next time.")
+      alert("Oops! You were supposed to stop.")
     }
     setStatus("");
+    setPos(60);
     setStarted(false);
     clearTimeout(timer);
   }
@@ -50,7 +78,7 @@ function App() {
         started ?
         (
           <div className="container">
-            <div className="flex-center">
+            <div className="flex-center top-section">
               <div className="doll-img">
                 <img src={doll} alt="Doll" onClick={() => endGame(true) } />
               </div>
