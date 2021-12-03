@@ -25,6 +25,10 @@ function App() {
         setPos(pos + 5);
         let d = document.getElementById("player");
         d.style.left = `${pos}px`;
+      } else if (e.code === "ArrowLeft") {
+        setPos(pos - 5);
+        let d = document.getElementById("player");
+        d.style.left = `${pos}px`;
       }
 
       if (pos > (window.innerWidth - 60 - 110)) {
