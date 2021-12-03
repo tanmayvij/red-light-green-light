@@ -45,7 +45,9 @@ function App() {
 
   const scrollMobile = useCallback(() => {
     if(window.innerWidth < 768) {
-      window.scrollTo({ top: window.innerHeight })
+      setTimeout(() => {
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+      }, 500);
     }
   }, []);
 
