@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import SweetAlert from "sweetalert2-react";
 import "./App.css";
 import doll from "./assets/doll.jpg";
 import player from "./assets/player.png";
@@ -10,20 +11,19 @@ function App() {
   const [status, setStatus] = useState("");
   const [timer, updateTimer] = useState();
   const [pos, setPos] = useState(60);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showFailure, setShowFailure] = useState(false);
 
   useEffect(() => {
     const handler = (e) => {
-      if (['ArrowRight', 'ArrowLeft'].includes(e.code) && status === 'red') {
+      if (["ArrowRight"].includes(e.code) && status === "red") {
         return endGame(false);
       }
 
-      if (e.code === 'ArrowRight') {
-        setPos(pos + 10);
-        let d = document.getElementById('player');
-        d.style.left = `${pos}px`;
-      } else if (e.code === 'ArrowLeft' && pos >= 70) {
-        setPos(pos - 10);
-        let d = document.getElementById('player');
+      if (e.code === "ArrowRight") {
+        setPos(pos + 5);
+        let d = document.getElementById("player");
         d.style.left = `${pos}px`;
       }
 
@@ -32,9 +32,9 @@ function App() {
       }
     };
 
-    window.addEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
 
-    return () => window.removeEventListener('keydown', handler);
+    return () => window.removeEventListener("keydown", handler);
   })
 
   const changeStatus = useCallback((newStatus) => {
@@ -49,16 +49,16 @@ function App() {
   }, [status]);
 
   const startGame = () => {
+    setShowWelcome(false);
     setStarted(true);
-    alert("Press arrow keys to move. Stop when red light is announced. Move to the finish point to complete the game.");
     changeStatus("red");
   }
 
   const endGame = (success) => {
     if (success) {
-      alert("Congratulations! You cleared it successfully.");
+      setShowSuccess(true);
     } else {
-      alert("Oops! You were supposed to stop.")
+      setShowFailure(true);
     }
     setStatus("");
     setPos(60);
@@ -98,10 +98,30 @@ function App() {
         ) :
         (
           <div className="start-btn">
-            <button onClick={startGame}>Play Now</button>
+            <button onClick={() => setShowWelcome(true)}>Play Now</button>
           </div>
         )
       }
+      <SweetAlert
+        show={showWelcome}
+        title="Welcome"
+        text="Press arrow keys to move. Stop when red light is announced. Move to the finish point to complete the game."
+        onConfirm={startGame}
+      />
+      <SweetAlert
+        show={showSuccess}
+        type="success"
+        title="Congratulations!"
+        text="You successfully passed the game!"
+        onConfirm={() => setShowSuccess(false)}
+      />
+      <SweetAlert
+        show={showFailure}
+        type="error"
+        title="Better luck next time!"
+        text="Oops! You were supposed to stop."
+        onConfirm={() => setShowFailure(false)}
+      />
     </div>
   );
 }
