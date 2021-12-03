@@ -41,7 +41,13 @@ function App() {
     window.addEventListener("keydown", handler);
 
     return () => window.removeEventListener("keydown", handler);
-  })
+  });
+
+  const scrollMobile = useCallback(() => {
+    if(window.innerWidth < 768) {
+      window.scrollTo({ top: window.innerHeight })
+    }
+  }, []);
 
   const changeStatus = useCallback((newStatus) => {
     setStatus(newStatus);
@@ -83,6 +89,7 @@ function App() {
   const startGame = () => {
     setShowWelcome(false);
     setStarted(true);
+    scrollMobile();
     changeStatus("red");
   }
 

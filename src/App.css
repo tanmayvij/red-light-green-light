@@ -53,17 +53,27 @@
   margin-bottom: 2rem;
 }
 
+.light {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+}
+
 @media (max-width: 767px) {
   .top-section {
     flex-direction: column;
     align-items: center;
   }
-}
 
-.light {
-  height: 10rem;
-  width: 10rem;
-  border-radius: 50%;
+  .doll-img img {
+    height: 25vh;
+    margin-bottom: 0.5rem;
+  }
+
+  .light {
+    height: 4rem !important;
+    width: 4rem !important;
+  }
 }
 
 .red {
