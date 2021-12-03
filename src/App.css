@@ -1,0 +1,85 @@
+.container {
+  padding: 3rem;
+}
+
+.heading {
+  text-align: center;
+}
+
+.fnt-red {
+  color: #FF0000;
+}
+
+.fnt-green {
+  color: #00C300;
+}
+
+.start-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 45vh;
+}
+
+.start-btn button {
+  height: 5rem;
+  width: 17rem;
+  background-color: #00C300;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  cursor: pointer;
+}
+
+.start-btn button:hover {
+  transition: 0.5s;
+  opacity: 0.6;
+}
+
+.doll-img {
+  display: flex;
+  justify-content: center;
+}
+
+.doll-img img {
+  height: 45vh;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.light {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #FF0000;
+}
+
+.green {
+  background-color: #00FF00;
+}
+
+.startPoint {
+  border-right: 1px solid #000000;
+  padding-right: 5px;
+}
+
+.endPoint {
+  border-left: 1px solid #000000;
+  padding-left: 5px;
+}
+
+.startPoint p, .endPoint p {
+  width: 0.75em;
+  word-wrap: break-word;
+  font-size: 2em;
+  text-transform: uppercase;
+}
