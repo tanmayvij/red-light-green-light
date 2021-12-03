@@ -95,3 +95,9 @@
   position: absolute;
   left: 60px;
 }
+
+.mobile {
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}

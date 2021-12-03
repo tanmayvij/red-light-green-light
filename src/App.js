@@ -5,6 +5,8 @@ import doll from "./assets/doll.jpg";
 import player from "./assets/player.png";
 import red from "./assets/red.mp3";
 import green from "./assets/green.mp3";
+import left from "./assets/left.png";
+import right from "./assets/right.png";
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -17,7 +19,7 @@ function App() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (["ArrowRight"].includes(e.code) && status === "red") {
+      if (["ArrowRight", "ArrowLeft"].includes(e.code) && status === "red") {
         return endGame(false);
       }
 
@@ -25,7 +27,7 @@ function App() {
         setPos(pos + 5);
         let d = document.getElementById("player");
         d.style.left = `${pos}px`;
-      } else if (e.code === "ArrowLeft") {
+      } else if (e.code === "ArrowLeft" && pos >= 65) {
         setPos(pos - 5);
         let d = document.getElementById("player");
         d.style.left = `${pos}px`;
@@ -51,6 +53,32 @@ function App() {
     let newTimer = setTimeout(() => changeStatus(newStatus === "red" ? "green" : "red"), Math.floor(Math.random() * 5000) + 3000);
     updateTimer(newTimer);
   }, [status]);
+
+  const moveRight = () => {
+    if(status === "red") {
+      return endGame(false);
+    }
+
+    setPos(pos + 5);
+    let d = document.getElementById("player");
+    d.style.left = `${pos}px`;
+
+    if (pos > (window.innerWidth - 60 - 110)) {
+      return endGame(true);
+    }
+  }
+
+  const moveLeft = () => {
+    if(status === "red") {
+      return endGame(false);
+    }
+    
+    if(pos >= 65) {
+      setPos(pos - 5);
+      let d = document.getElementById("player");
+      d.style.left = `${pos}px`;
+    }
+  }
 
   const startGame = () => {
     setShowWelcome(false);
@@ -97,6 +125,11 @@ function App() {
               <div className="endPoint">
                 <p>Finish</p>
               </div>
+            </div>
+
+            <div className="flex-center mobile">
+              <img src={left} onClick={moveLeft} height="64" width="64" />
+              <img src={right} onClick={moveRight} height="64" width="64" />
             </div>
           </div>
         ) :
