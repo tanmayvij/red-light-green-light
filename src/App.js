@@ -19,8 +19,6 @@ function App() {
 
     let newTimer = setTimeout(() => changeStatus(newStatus === "red" ? "green" : "red"), Math.floor(Math.random() * 5000) + 3000);
     updateTimer(newTimer);
-
-    endGame(false);
   }, [status]);
 
   const startGame = () => {
@@ -54,7 +52,7 @@ function App() {
           <div className="container">
             <div className="flex-center">
               <div className="doll-img">
-                <img src={doll} alt="Doll" />
+                <img src={doll} alt="Doll" onClick={() => endGame(true) } />
               </div>
               <div className={`light ${status}`}></div>
             </div>
